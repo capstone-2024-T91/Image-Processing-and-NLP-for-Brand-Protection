@@ -1,0 +1,21 @@
+{
+  "name": "Phishing Email Reader",
+  "version": "1.0.0",
+  "description": "This is an extension to read your email end say if its fishing or not",
+  "manifest_version": 3,
+  "permissions": ["activeTab", "storage"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["script.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "author": "Tiffany J",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Phishing Email Reader"
+  }
+}
