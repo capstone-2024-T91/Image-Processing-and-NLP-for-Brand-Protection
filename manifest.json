@@ -10,9 +10,7 @@
       "js": ["script.js"]
     }
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
+
   "author": "Tiffany J",
   "action": {
     "default_popup": "popup.html",
