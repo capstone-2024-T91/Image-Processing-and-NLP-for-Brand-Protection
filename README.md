@@ -37,3 +37,16 @@ Malicious phishing websites change constantly and go through significant efforts
 
 - `Phishing_Email.csv`: The dataset containing email data, labeled for phishing detection.
 - `README.md`: This document, which explains the project and repository structure.
+
+
+## Results
+
+### Neural Network Predictor Results
+
+![Neural Network Predictor Results](Assets/nn-result.png)
+
+This image shows the results after running the neural network prediction model. The model's accuracy, loss, and other relevant metrics are presented.
+
+### Machine Learning Predictor Results
+
+![Machine Learning Predictor Results](Assets/ml-result.png)

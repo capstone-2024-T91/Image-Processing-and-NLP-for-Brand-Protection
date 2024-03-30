@@ -1,0 +1,14 @@
+Dear Customer,
+
+We have detected unusual activity on your account and suspect an unauthorized transaction attempt. As a precaution, we have temporarily suspended your account access.
+
+To verify your identity and reactivate your account, please click on the link below and follow the instructions:
+
+Verify My Account
+
+Failure to complete the verification within 24 hours will result in permanent account suspension.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+Customer Support Team
