@@ -15,24 +15,20 @@ function readTextFromClass(className) {
   // Add api to send to model
   console.log(allText);
   if (loadingDiv) {
-    loadingDiv.style.display = "block";
-    fakeAsyncFunction()
-      .then(function (percentage) {
-        console.log("Percentage:", percentage);
-        loadingDiv.style.display = "none";
-      })
-      .catch(function (error) {
-        console.error("Error:", error);
-        loadingDiv.style.display = "none";
-      });
+    console.log('wah')
+        
+    fetch('https://randomuser.me/api/')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json(); 
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('There was a problem with the API request:', error);
+    });
   }
-}
-
-function fakeAsyncFunction() {
-  return new Promise(function (resolve, reject) {
-    setTimeout(function () {
-      var percentage = 50;
-      resolve(percentage);
-    }, 4000);
-  });
 }
