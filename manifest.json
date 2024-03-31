@@ -1,13 +1,13 @@
 {
   "name": "Phishing Email Reader",
   "version": "1.0.0",
-  "description": "This is an extension to read your email end say if its fishing or not",
+  "description": "This is an extension to read your email andd determine wheather its fishing or not",
   "manifest_version": 3,
   "permissions": ["activeTab", "storage"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["script.js"]
+      "js": ["script.js", "popup.js"]
     }
   ],
 

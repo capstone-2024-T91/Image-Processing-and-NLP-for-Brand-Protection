@@ -5,6 +5,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   }
 });
 
+
+
 function readTextFromClass(className) {
   var loadingDiv = document.getElementById("loading");
   let elements = document.querySelectorAll("." + className);
@@ -15,7 +17,6 @@ function readTextFromClass(className) {
   // Add api to send to model
   console.log(allText);
   if (loadingDiv) {
-    console.log('wah')
         
     fetch('https://randomuser.me/api/')
     .then(response => {
