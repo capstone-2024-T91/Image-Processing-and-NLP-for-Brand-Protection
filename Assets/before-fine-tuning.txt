@@ -1,0 +1,23 @@
+Please enter the file name with the test data:  test-body.txt
+[[0.53228078 0.46771922]]
+Model: Classifiers/AdaBoostClassifier.joblib
+Prediction: Phishing Email, Certainty: 0.5323
+Do you think I'm right ? (y/n):  n
+Model doesn't support partial fitting. Retraining from scratch...
+[[0.57668691 0.42331309]]
+Model: Classifiers/LogisticRegression.joblib
+Prediction: Phishing Email, Certainty: 0.5767
+Do you think I'm right ? (y/n):  n
+Model doesn't support partial fitting. Retraining from scratch...
+[[0.6 0.4]]
+Model: Classifiers/RandomForestClassifier.joblib
+Prediction: Phishing Email, Certainty: 0.6000
+Do you think I'm right ? (y/n):  n
+Model doesn't support partial fitting. Retraining from scratch...
+Model: Classifiers/SGDClassifier.joblib does not support probability estimates
+Nonetheless, the prediction is: Safe Email
+[[1. 0.]]
+Model: Classifiers/DecisionTreeClassifier.joblib
+Prediction: Phishing Email, Certainty: 1.0000
+Do you think I'm right ? (y/n):  n
+Model doesn't support partial fitting. Retraining from scratch...
