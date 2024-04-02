@@ -175,117 +175,127 @@ function addButtonToInterface() {
       sortContainer.appendChild(sortButton2);
 
       // temp fake request
-      setTimeout(() => {
-        // temp fake request
-        fetch("https://randomuser.me/api/")
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            sortButton2.style.display = "None";
-            sortContainer.appendChild(resultButton);
+      // setTimeout(() => {
+      //   // temp fake request
+      //   fetch("https://randomuser.me/api/")
+      //     .then((response) => {
+      //       if (!response.ok) {
+      //         throw new Error("Network response was not ok");
+      //       }
+      //       return response.json();
+      //     })
+      //     .then((data) => {
+      //       sortButton2.style.display = "None";
+      //       sortContainer.appendChild(resultButton);
 
-            const buttonElement = document.getElementById("resultButton");
-            buttonElement.style.opacity = "0";
-            buttonElement.style.transform = "translateX(20px)";
-            buttonElement.style.animation =
-              "bg1 2.4s 0s cubic-bezier(0.6, 0.1, 0.165, 1)";
-            buttonElement.style.animationFillMode = "forwards";
+      //       const buttonElement = document.getElementById("resultButton");
+      //       buttonElement.style.opacity = "0";
+      //       buttonElement.style.transform = "translateX(20px)";
+      //       buttonElement.style.animation =
+      //         "bg1 2.4s 0s cubic-bezier(0.6, 0.1, 0.165, 1)";
+      //       buttonElement.style.animationFillMode = "forwards";
 
-            let parsed = parser(testingResult);
-            let consensus = classifyEmail(parsed);
-            console.log(consensus);
-            if (consensus.classification == "Danger") {
-              resultButton.textContent =
-                "High, Risk estimate : " +
-                consensus.averageCertainty.toPrecision(2) +
-                "%";
-              resultButton.style.backgroundColor = "rgb(242,28,28)";
-            }
-            if (consensus.classification == "Moderate") {
-              resultButton.style.backgroundColor = "rgb(242,138,28)";
-              resultButton.textContent =
-                "Moderate, Risk estimate : " +
-                consensus.averageCertainty.toPrecision(2) +
-                "%";
-            }
-            if (consensus.classification == "Safe") {
-              resultButton.textContent =
-                "Low, Safety estimate : " +
-                consensus.averageCertainty.toPrecision(2) +
-                "%";
-              resultButton.style.backgroundColor = "rgb(7,138,68)";
-            }
-          })
-          .catch((error) => {
-            console.error("There was a problem with the API request:", error);
-          });
-      }, 2500);
+      //       let parsed = parser(testingResult);
+      //       let consensus = classifyEmail(parsed);
+      //       console.log(consensus);
+      //       if (consensus.classification == "Danger") {
+      //         resultButton.textContent =
+      //           "High, Risk estimate : " +
+      //           consensus.averageCertainty.toPrecision(2) +
+      //           "%";
+      //         resultButton.style.backgroundColor = "rgb(242,28,28)";
+      //       }
+      //       if (consensus.classification == "Moderate") {
+      //         resultButton.style.backgroundColor = "rgb(242,138,28)";
+      //         resultButton.textContent =
+      //           "Moderate, Risk estimate : " +
+      //           consensus.averageCertainty.toPrecision(2) +
+      //           "%";
+      //       }
+      //       if (consensus.classification == "Safe") {
+      //         resultButton.textContent =
+      //           "Low, Safety estimate : " +
+      //           consensus.averageCertainty.toPrecision(2) +
+      //           "%";
+      //         resultButton.style.backgroundColor = "rgb(7,138,68)";
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.error("There was a problem with the API request:", error);
+      //     });
+      // }, 2500);
 
       // Actual request which should work once the api runs //
 
-      // const formData = new FormData();
-      // formData.append('experience', document.querySelector('.a3s').textContent);
+      const formData = new FormData();
+      formData.append("experience", document.querySelector(".a3s").textContent);
 
-      // fetch('https://3.14.250.99/', {
-      //   method: 'POST',
-      //   body: formData
-      // })
-      // .then(response => {
-      //   if (!response.ok) {
-      //     throw new Error('Network response was not ok');
-      //   }
-      //   return response.json();
-      // })
-      // .then(data => {
+      fetch("https://3.14.250.99/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          console.log(response);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.text();
+        })
+        .then((data) => {
+          sortContainer.appendChild(resultButton);
+          const keyframes = `
+          @keyframes bg1 {
+            0% {
+              opacity: 0;
+              transform: translateX(20px);
+            }
+            100% {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+        `;
 
-      //   sortContainer.appendChild(resultButton);
-      //   const keyframes = `
-      //     @keyframes bg1 {
-      //       0% {
-      //         opacity: 0;
-      //         transform: translateX(20px);
-      //       }
-      //       100% {
-      //         opacity: 1;
-      //         transform: translateX(0);
-      //       }
-      //     }
-      //   `;
+          const styleElement = document.createElement("style");
+          styleElement.innerHTML = keyframes;
+          document.head.appendChild(styleElement);
 
-      //   const styleElement = document.createElement('style');
-      //   styleElement.innerHTML = keyframes;
-      //   document.head.appendChild(styleElement);
+          // Now you can apply the styles as before
+          const buttonElement = document.getElementById("resultButton");
+          buttonElement.style.opacity = "0";
+          buttonElement.style.transform = "translateX(20px)";
+          buttonElement.style.animation =
+            "bg1 2.4s 0s cubic-bezier(0.6, 0.1, 0.165, 1)";
+          buttonElement.style.animationFillMode = "forwards";
 
-      //   // Now you can apply the styles as before
-      //   const buttonElement = document.getElementById('hamid');
-      //   buttonElement.style.opacity = '0';
-      //   buttonElement.style.transform = 'translateX(20px)';
-      //   buttonElement.style.animation = 'bg1 2.4s 0s cubic-bezier(0.6, 0.1, 0.165, 1)';
-      //   buttonElement.style.animationFillMode = 'forwards';
-
-      //   let parsed = parser(data);
-      //   let consensus = classifyEmail(parsed);
-      //   console.log(consensus);
-      //   if (consensus.classification == "Danger"){
-      //     resultButton.textContent = 'High, Risk estimate : ' + consensus.averageCertainty.toPrecision(2) + "%";
-      //     resultButton.style.backgroundColor = 'rgb(242,28,28)';
-      //   }
-      //   if (consensus.classification == "Moderate"){
-      //     resultButton.style.backgroundColor = 'rgb(242,156,28)';
-      //     resultButton.textContent = 'Moderate, Risk estimate : ' + consensus.averageCertainty.toPrecision(2)+ "%";
-      //   }
-      //   if (consensus.classification == "Safe"){
-      //     resultButton.textContent = 'Low, Safety estimate : ' + consensus.averageCertainty.toPrecision(2)+ "%";
-      //     resultButton.style.backgroundColor = 'rgb(7,138,68)';
-      //   }
-      // })
-      // .catch(error => {
-      //   console.error('Error:', error);
-      // });
+          let parsed = parser(data);
+          let consensus = classifyEmail(parsed);
+          console.log(consensus);
+          if (consensus.classification == "Danger") {
+            resultButton.textContent =
+              "High, Risk estimate : " +
+              consensus.averageCertainty.toPrecision(2) +
+              "%";
+            resultButton.style.backgroundColor = "rgb(242,28,28)";
+          }
+          if (consensus.classification == "Moderate") {
+            resultButton.style.backgroundColor = "rgb(242,156,28)";
+            resultButton.textContent =
+              "Moderate, Risk estimate : " +
+              consensus.averageCertainty.toPrecision(2) +
+              "%";
+          }
+          if (consensus.classification == "Safe") {
+            resultButton.textContent =
+              "Low, Safety estimate : " +
+              consensus.averageCertainty.toPrecision(2) +
+              "%";
+            resultButton.style.backgroundColor = "rgb(7,138,68)";
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     });
   } else {
     // If the target element doesn't exist yet, keep observing the DOM
