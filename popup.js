@@ -242,6 +242,7 @@ function addButtonToInterface() {
           return response.text();
         })
         .then((data) => {
+          sortButton2.style.display = "None";
           sortContainer.appendChild(resultButton);
           const keyframes = `
           @keyframes bg1 {
