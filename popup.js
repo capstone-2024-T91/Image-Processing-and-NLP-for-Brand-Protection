@@ -1,45 +1,3 @@
-const testingResult = `
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Detect phishing API</title>
-    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-</head>
-
-<body>
-    <div class="login">
-        <h1>Predict if email is phishing</h1>
-
-        <!-- Main Input For Receiving Query to our ML -->
-        <form action="/" method="post">
-            <input type="text" name="experience" placeholder="File name please:" required="required" />
-            <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-        </form>
-
-        <br>
-        <br>
-    Model: Classifiers/SGDClassifier.joblib does not support probability estimates
-Nonetheless, the prediction is: Phishing Email
-Model: Classifiers/DecisionTreeClassifier.joblib
-Prediction: Safe Email, Certainty: 1.0
-Model: Classifiers/LogisticRegression.joblib
-Prediction: Phishing Email, Certainty: 0.9594101527100533
-Model: Classifiers/RandomForestClassifier.joblib
-Prediction: Phishing Email, Certainty: 0.6
-Model: Classifiers/AdaBoostClassifier.joblib
-Prediction: Phishing Email, Certainty: 0.5126577472528376
-
-    </div>
-</body>
-
-</html>
-`;
-
 // Style  / Animations //
 const keyframes = `
   @keyframes bg1 {
@@ -74,7 +32,8 @@ const styleElement = document.createElement("style");
 styleElement.innerHTML = keyframes;
 document.head.appendChild(styleElement);
 
-// Style //
+// Style / Animations //
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var readButton = document.getElementById("readButton");
@@ -85,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// This function below is to keep checking if an email is displayed in the page, and to append a button to it.
 let found = false;
 // Function to observe changes in the DOM
 function observeDOM() {
@@ -104,9 +64,10 @@ function observeDOM() {
           mutation.addedNodes.forEach(function (node) {
             var sortContainer = document.querySelector("td.c2");
             var phishingButton = document.querySelector(".phishing");
-
+            // If we exited out of the page, phishingButton will be null, therefore we make `found` false to allow the button to be added again when needed
             if (!phishingButton && found) found = false;
 
+            // adding the button to the interface when we need to
             if (node.nodeType === 1 && sortContainer && !found) {
               found = true;
               addButtonToInterface();
@@ -125,10 +86,11 @@ function observeDOM() {
 
 // Function to add your button
 function addButtonToInterface() {
-  // Create your button element
+
+  // Creating the main button
   var sortButton = document.createElement("button");
   sortButton.textContent = "Phishing Risk?";
-  // Apply styles
+  // Styles
   sortButton.style.padding = "4px 10px";
   sortButton.style.fontSize = "smaller";
   sortButton.style.marginLeft = "18px";
@@ -136,161 +98,89 @@ function addButtonToInterface() {
   sortButton.style.color = "#4e4e4e";
   sortButton.style.border = "none";
   sortButton.style.cursor = "pointer";
-  sortButton.style.borderRadius = "0px";
+  sortButton.style.borderRadius = "4px 0 0 4px";
   sortButton.classList.add("phishing");
 
-  // Create your button element
+  // Creating the button that shows the result
   var resultButton = document.createElement("button");
   resultButton.id = "resultButton";
-  // Apply styles
+  // Styles
   resultButton.style.padding = "4px 10px";
   resultButton.style.fontSize = "smaller";
   resultButton.style.backgroundColor = "rgb(77, 77, 77)";
   resultButton.style.color = "rgb(235, 236, 237)";
   resultButton.style.border = "none";
-  resultButton.style.borderRadius = "0px";
-
+  resultButton.style.borderRadius = "0px 4px 4px 0px";
+  resultButton.style.opacity = "0";
+  resultButton.style.transform = "translateX(20px)";
+  resultButton.style.animation = "bg1 2.4s 0s cubic-bezier(0.6, 0.1, 0.165, 1)";
+  resultButton.style.animationFillMode = "forwards";
   resultButton.classList.add("phishing");
 
   // Find the target element to append your button
   var sortContainer = document.querySelector("td.c2");
 
-  // Check if the target element exists
+  // Check if the parent exists
   if (sortContainer) {
-    // Append the button to the target element
+    // Append the main button to the target element
     sortContainer.appendChild(sortButton);
 
-    // sample api call to be replaced //
+    // Event listener for the button
     sortButton.addEventListener("click", () => {
-      var sortButton2 = document.createElement("button");
-      sortButton2.style.border = "none";
-      sortButton2.style.borderRadius = "0px";
-      sortButton2.style.backgroundColor = "#00000000";
-      sortButton2.style.fontSize = "smaller";
-      sortButton2.style.opacity = "0";
-      sortButton2.style.animation =
+
+      //When the button is clicked, we create the 'loading ...' button
+      var loadingButton = document.createElement("button");
+      loadingButton.style.border = "none";
+      loadingButton.style.borderRadius = "0px";
+      loadingButton.style.backgroundColor = "#00000000";
+      loadingButton.style.fontSize = "smaller";
+      loadingButton.style.opacity = "0";
+      loadingButton.style.animation =
         "bg2 1s 0s cubic-bezier(0.6, 0.1, 0.165, 1), bg3 1s 1s cubic-bezier(0.6, 0.1, 0.165, 1)";
-      sortButton2.style.animationFillMode = "forwards";
-      sortButton2.textContent = "loading...";
-      sortContainer.appendChild(sortButton2);
+      loadingButton.style.animationFillMode = "forwards";
+      loadingButton.textContent = "loading...";
+      sortContainer.appendChild(loadingButton);
 
-      // temp fake request
-      // setTimeout(() => {
-      //   // temp fake request
-      //   fetch("https://randomuser.me/api/")
-      //     .then((response) => {
-      //       if (!response.ok) {
-      //         throw new Error("Network response was not ok");
-      //       }
-      //       return response.json();
-      //     })
-      //     .then((data) => {
-      //       sortButton2.style.display = "None";
-      //       sortContainer.appendChild(resultButton);
 
-      //       const buttonElement = document.getElementById("resultButton");
-      //       buttonElement.style.opacity = "0";
-      //       buttonElement.style.transform = "translateX(20px)";
-      //       buttonElement.style.animation =
-      //         "bg1 2.4s 0s cubic-bezier(0.6, 0.1, 0.165, 1)";
-      //       buttonElement.style.animationFillMode = "forwards";
-
-      //       let parsed = parser(testingResult);
-      //       let consensus = classifyEmail(parsed);
-      //       console.log(consensus);
-      //       if (consensus.classification == "Danger") {
-      //         resultButton.textContent =
-      //           "High, Risk estimate : " +
-      //           consensus.averageCertainty.toPrecision(2) +
-      //           "%";
-      //         resultButton.style.backgroundColor = "rgb(242,28,28)";
-      //       }
-      //       if (consensus.classification == "Moderate") {
-      //         resultButton.style.backgroundColor = "rgb(242,138,28)";
-      //         resultButton.textContent =
-      //           "Moderate, Risk estimate : " +
-      //           consensus.averageCertainty.toPrecision(2) +
-      //           "%";
-      //       }
-      //       if (consensus.classification == "Safe") {
-      //         resultButton.textContent =
-      //           "Low, Safety estimate : " +
-      //           consensus.averageCertainty.toPrecision(2) +
-      //           "%";
-      //         resultButton.style.backgroundColor = "rgb(7,138,68)";
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       console.error("There was a problem with the API request:", error);
-      //     });
-      // }, 2500);
-
-      // Actual request which should work once the api runs //
-
+      // Request data with the email body
       const formData = new FormData();
       formData.append("experience", document.querySelector(".a3s").textContent);
 
+      // Post request
       fetch("https://3.14.250.99/", {
         method: "POST",
         body: formData,
       })
         .then((response) => {
-          console.log(response);
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           return response.text();
         })
         .then((data) => {
-          sortButton2.style.display = "None";
+          // Removing the loading button 
+          loadingButton.style.display = "None";
+
+          // Displaying the result
           sortContainer.appendChild(resultButton);
-          const keyframes = `
-          @keyframes bg1 {
-            0% {
-              opacity: 0;
-              transform: translateX(20px);
-            }
-            100% {
-              opacity: 1;
-              transform: translateX(0);
-            }
-          }
-        `;
 
-          const styleElement = document.createElement("style");
-          styleElement.innerHTML = keyframes;
-          document.head.appendChild(styleElement);
-
-          // Now you can apply the styles as before
-          const buttonElement = document.getElementById("resultButton");
-          buttonElement.style.opacity = "0";
-          buttonElement.style.transform = "translateX(20px)";
-          buttonElement.style.animation =
-            "bg1 2.4s 0s cubic-bezier(0.6, 0.1, 0.165, 1)";
-          buttonElement.style.animationFillMode = "forwards";
-
+          // Parsing data
           let parsed = parser(data);
+
+          // Finding the consensus
           let consensus = classifyEmail(parsed);
-          console.log(consensus);
+
+          // Displaying the result
           if (consensus.classification == "Danger") {
-            resultButton.textContent =
-              "High, Risk estimate : " +
-              consensus.averageCertainty.toPrecision(2) +
-              "%";
+            resultButton.textContent = "High, Risk estimate : " + consensus.averageCertainty.toPrecision(2) + "%";
             resultButton.style.backgroundColor = "rgb(242,28,28)";
           }
           if (consensus.classification == "Moderate") {
             resultButton.style.backgroundColor = "rgb(242,156,28)";
-            resultButton.textContent =
-              "Moderate, Risk estimate : " +
-              consensus.averageCertainty.toPrecision(2) +
-              "%";
+            resultButton.textContent = "Moderate, Risk estimate : " + consensus.averageCertainty.toPrecision(2) + "%";
           }
           if (consensus.classification == "Safe") {
-            resultButton.textContent =
-              "Low, Safety estimate : " +
-              consensus.averageCertainty.toPrecision(2) +
-              "%";
+            resultButton.textContent = "Low, Safety estimate : " + consensus.averageCertainty.toPrecision(2) + "%";
             resultButton.style.backgroundColor = "rgb(7,138,68)";
           }
         })
@@ -326,7 +216,6 @@ function classifyEmail(predictions) {
   let phishingCertaintySum = 0;
 
   for (let i = 1; i < predictions.length; i += 1) {
-    console.log(predictions[i]);
     if (predictions[i].includes("Phishing Email")) {
       const certaintyLine = predictions[i];
       const certaintyMatch = certaintyLine.match(/Certainty: ([0-9.]+)/);
@@ -347,7 +236,6 @@ function classifyEmail(predictions) {
       }
     }
   }
-  console.log(phishingCount);
   if (phishingCount == 5) {
     const averageCertainty =
       (phishingCertaintySum / phishingCountWithCertainty) * 100;
