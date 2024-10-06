@@ -2,6 +2,10 @@
 
 This project aims to detect phishing emails using state-of-the-art NLP and ML algorithms.
 
+> [!ALERT]
+> This project is still under development. The final version will be released soon.
+
+
 ## Project Structure
 
 - **data/**: Contains raw and processed datasets.
@@ -47,8 +51,8 @@ The project structure is as follows:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/phishing_email_detector.git
-   cd phishing_email_detector
+   git clone https://github.com/capstone-2024-T91/Image-Processing-and-NLP-for-Brand-Protection.git
+   cd Image-Processing-and-NLP-for-Brand-Protection
    ```
 
 2. **Create a virtual environment**
