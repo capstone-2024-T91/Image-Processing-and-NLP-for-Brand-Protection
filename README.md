@@ -13,6 +13,7 @@ This project aims to detect phishing emails using state-of-the-art NLP and ML al
 - **utils/**: Utility functions for data preprocessing, model training, and evaluation.
 
 The project structure is as follows:
+```
     project/
     ├── models/
     │   ├── local_llm.py
@@ -39,7 +40,7 @@ The project structure is as follows:
     ├── setup.py
     ├── requirements.txt
     └── README.md
-
+```
 
 ## Setup
 
