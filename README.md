@@ -2,7 +2,7 @@
 
 This project aims to detect phishing emails using state-of-the-art NLP and ML algorithms.
 
-> [!ALERT]
+> [!WARNING]
 > This project is still under development. The final version will be released soon.
 
 
