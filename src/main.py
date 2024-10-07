@@ -30,9 +30,9 @@ def main():
     if args.train:
         # Training Mode
         if args.local or args.llm:
-            model = LocalLLM(model_name=args.llm, verbose=verbose)
+            model = LocalLLM(model_name=args.llm, verbose=verbose, training=True)
         elif args.r:
-            model = RobertaModel(verbose=verbose)
+            model = RobertaModel(verbose=verbose, training=True)
         else:
             print("Please specify a model to train using -local, -llm, or -r.")
             return
