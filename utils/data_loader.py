@@ -4,6 +4,8 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sklearn.model_selection import train_test_split
 import torch
+from tqdm.auto import tqdm
+
 
 def load_dataset(tokenizer):
     phishing_emails = pd.read_csv('data/processed/phishing_train_1.csv')
@@ -15,7 +17,13 @@ def load_dataset(tokenizer):
     texts = emails['body'].tolist()
 
     # Tokenize texts
-    encodings = tokenizer(texts, truncation=True, padding=True)
+    # Tokenize texts with progress bar
+    encodings = tokenizer(
+        texts,
+        truncation=True,
+        padding=True,
+        return_tensors='pt',
+    )
 
     # Convert to torch Dataset
     class EmailDataset(torch.utils.data.Dataset):
@@ -35,8 +43,23 @@ def load_dataset(tokenizer):
     train_texts, eval_texts, train_labels, eval_labels = train_test_split(
         texts, labels, test_size=0.2, random_state=42
     )
-    train_encodings = tokenizer(train_texts, truncation=True, padding=True)
-    eval_encodings = tokenizer(eval_texts, truncation=True, padding=True)
+    # Tokenize with progress bar
+    if tokenizer.verbose:
+        print("Tokenizing training data...")
+    train_encodings = tokenizer(
+        train_texts,
+        truncation=True,
+        padding=True,
+        return_tensors='pt',
+    )
+    if tokenizer.verbose:
+        print("Tokenizing evaluation data...")
+    eval_encodings = tokenizer(
+        eval_texts,
+        truncation=True,
+        padding=True,
+        return_tensors='pt',
+    )
 
     train_dataset = EmailDataset(train_encodings, train_labels)
     eval_dataset = EmailDataset(eval_encodings, eval_labels)
