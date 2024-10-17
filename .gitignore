@@ -1,6 +1,6 @@
 venv/
 data/raw
-data/processed
+# data/processed
 configs/
 .DS_Store
 .env
