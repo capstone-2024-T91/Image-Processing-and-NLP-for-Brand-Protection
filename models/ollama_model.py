@@ -20,17 +20,15 @@ class OllamaModel:
         # Run the Ollama command
         try:
             result = subprocess.run(
-                ['ollama', 'run', self.model_name, '--json'],
+                ['ollama', 'run', self.model_name,],
                 input=prompt.encode('utf-8'),
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 check=True
             )
             # Parse the output
-            outputs = result.stdout.decode('utf-8').splitlines()
-            last_output = outputs[-1]
-            output_json = json.loads(last_output)
-            response_text = output_json.get('response', '').strip().lower()
+            output = result.stdout.decode('utf-8')
+            response_text = output.strip().lower()
             if self.verbose:
                 print(f"Ollama model response: {response_text}")
             return 'phishing' in response_text

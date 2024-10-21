@@ -17,9 +17,15 @@ def train_model(model, tokenizer, model_name, verbose=False, resume_from_checkpo
         print("Loading dataset...")
     train_dataset, eval_dataset = load_dataset(tokenizer)
 
+    os.environ["WANDB_PROJECT"]="capstone-2024"
+    os.environ["WANDB_LOG_MODEL"]="checkpoint"
+    os.environ["WANDB_WATCH"]="false"
+
     # Define training arguments
     training_args = TrainingArguments(
         output_dir=f'models/{model_name}_fine_tuned',
+        run_name=f'{model_name}-finetuning',
+        report_to="wandb",
         num_train_epochs=3,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
