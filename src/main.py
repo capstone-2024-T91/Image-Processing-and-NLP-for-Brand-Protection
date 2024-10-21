@@ -23,6 +23,7 @@ def parse_arguments():
     parser.add_argument('-v', action='store_true', help='Enable verbose output')
     parser.add_argument('-model_path', type=str, help='Path to the fine-tuned model directory')
     parser.add_argument('-checkpoint', type=str, help='Path to the training checkpoint')
+    parser.add_argument('-run_id', type=str, help='W&B run ID for resuming training')
     return parser.parse_args()
 
 def main():
@@ -34,13 +35,14 @@ def main():
         return
     
     checkpoint = args.checkpoint if args.checkpoint else None
+    run_id = args.run_id if args.run_id else None
 
     if args.train:
         # Training Mode
         if args.local or args.llm:
             model = LocalLLM(model_name=args.local, verbose=verbose, training=True)
         elif args.r:
-            model = RobertaModel(verbose=verbose, training=True, checkpoint=checkpoint)
+            model = RobertaModel(verbose=verbose, training=True, checkpoint=checkpoint, run_id=run_id)
         else:
             print("Please specify a model to train using -local, -llm, or -r.")
             return

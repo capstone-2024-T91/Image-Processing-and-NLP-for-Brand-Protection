@@ -10,10 +10,11 @@ from tqdm import tqdm
 
 
 class RobertaModel:
-    def __init__(self, model_path=None, verbose=False, training=False, checkpoint=None):
+    def __init__(self, model_path=None, verbose=False, training=False, checkpoint=None, run_id=None):
         self.verbose = verbose
         self.model_name = 'roberta-base'
         self.checkpoint = checkpoint
+        self.run_id = run_id
         if training:
             # During training, load the base model from Hugging Face
             self.model_path = self.model_name
@@ -46,4 +47,4 @@ class RobertaModel:
         return torch.argmax(probs) == 1  # Assuming label 1 is 'Phishing'
 
     def train(self):
-        train_model(self.model, self.tokenizer, self.model_name, self.verbose, self.checkpoint)
+        train_model(self.model, self.tokenizer, self.model_name, self.verbose, self.checkpoint, self.run_id)
