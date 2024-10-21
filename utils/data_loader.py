@@ -8,8 +8,8 @@ from tqdm.auto import tqdm
 
 
 def load_dataset(tokenizer):
-    phishing_emails = pd.read_csv('data/processed/phishing_train_1.csv')
-    phishing_emails_2 = pd.read_csv('data/processed/phishing_train_2.csv')
+    phishing_emails = pd.read_csv("https://media.githubusercontent.com/media/capstone-2024-T91/Image-Processing-and-NLP-for-Brand-Protection/refs/heads/prototype_v3/data/processed/phishing_train_1.csv")
+    phishing_emails_2 = pd.read_csv("https://media.githubusercontent.com/media/capstone-2024-T91/Image-Processing-and-NLP-for-Brand-Protection/refs/heads/prototype_v3/data/processed/phishing_train_2.csv")
 
     # Combine datasets
     emails = pd.concat([phishing_emails, phishing_emails_2], ignore_index=True)

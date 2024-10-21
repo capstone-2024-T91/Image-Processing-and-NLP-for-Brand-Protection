@@ -6,6 +6,7 @@ from models.local_llm import LocalLLM
 from models.roberta_model import RobertaModel
 from models.openai_model import OpenAIModel
 from models.claude_model import ClaudeModel
+from models.ollama_model import OllamaModel
 from utils.preprocess import preprocess_email
 
 
@@ -17,22 +18,29 @@ def parse_arguments():
     parser.add_argument('-r', action='store_true', help='Use the RoBERTa model')
     parser.add_argument('-openai', action='store_true', help='Use OpenAI GPT models')
     parser.add_argument('-claude', action='store_true', help='Use Anthropic Claude models')
+    parser.add_argument('-o', type=str, help='Use an Ollama model (specify the model name)')
     parser.add_argument('-train', action='store_true', help='Train the selected model')
     parser.add_argument('-v', action='store_true', help='Enable verbose output')
     parser.add_argument('-model_path', type=str, help='Path to the fine-tuned model directory')
+    parser.add_argument('-checkpoint', type=str, help='Path to the training checkpoint')
     return parser.parse_args()
 
 def main():
     args = parse_arguments()
     verbose = args.v
     model_path = args.model_path
+    if args.checkpoint and not args.train:
+        print("Checkpoint is only used during training. Use -train to train the model.")
+        return
+    
+    checkpoint = args.checkpoint if args.checkpoint else None
 
     if args.train:
         # Training Mode
         if args.local or args.llm:
             model = LocalLLM(model_name=args.llm, verbose=verbose, training=True)
         elif args.r:
-            model = RobertaModel(verbose=verbose, training=True)
+            model = RobertaModel(verbose=verbose, training=True, checkpoint=checkpoint)
         else:
             print("Please specify a model to train using -local, -llm, or -r.")
             return
@@ -68,6 +76,10 @@ def main():
         if verbose:
             print("Using Anthropic Claude model for prediction.")
         model = ClaudeModel(verbose=verbose)
+    elif args.o:
+        if verbose:
+            print(f"Using Ollama model '{args.o}' for prediction.")
+        model = OllamaModel(model_name=args.o, verbose=verbose)
     else:
         print("No model specified. Use -local, -llm, -r, -openai, or -claude to select a model.")
         return

@@ -7,7 +7,7 @@ from utils.data_loader import load_dataset
 from tqdm import tqdm
 
 
-def train_model(model, tokenizer, model_name, verbose=False):
+def train_model(model, tokenizer, model_name, verbose=False, resume_from_checkpoint=None):
     if verbose:
         logging.set_verbosity_info()
     else:
@@ -39,8 +39,13 @@ def train_model(model, tokenizer, model_name, verbose=False):
         eval_dataset=eval_dataset,
     )
 
-    # Train the model
-    trainer.train()
+    # Check if resuming from a checkpoint
+    if resume_from_checkpoint:
+        if verbose:
+            print(f"Resuming training from checkpoint: {resume_from_checkpoint}")
+        trainer.train(resume_from_checkpoint=f'models/{model_name}_fine_tuned/checkpoint-{resume_from_checkpoint}')
+    else:
+        trainer.train()
 
     if verbose:
         print(f"Model fine-tuned and saved at './models/{model_name}_fine_tuned'")
