@@ -13,8 +13,8 @@ from utils.preprocess import preprocess_email
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Phishing Email Detector')
     parser.add_argument('email_text', nargs='?', default='', type=str, help='The email text to analyze')
-    parser.add_argument('-llm', type=str, help='Specify a local LLM by name')
-    parser.add_argument('-local', action='store_true', help='Use the default local LLM')
+    parser.add_argument('-local', type=str, help='Specify a local model by name')
+    parser.add_argument('-llm', action='store_true', help='Use the default local LLM')
     parser.add_argument('-r', action='store_true', help='Use the RoBERTa model')
     parser.add_argument('-openai', action='store_true', help='Use OpenAI GPT models')
     parser.add_argument('-claude', action='store_true', help='Use Anthropic Claude models')
@@ -38,7 +38,7 @@ def main():
     if args.train:
         # Training Mode
         if args.local or args.llm:
-            model = LocalLLM(model_name=args.llm, verbose=verbose, training=True)
+            model = LocalLLM(model_name=args.local, verbose=verbose, training=True)
         elif args.r:
             model = RobertaModel(verbose=verbose, training=True, checkpoint=checkpoint)
         else:
@@ -63,7 +63,7 @@ def main():
     if args.local or args.llm:
         if verbose:
             print("Using Local LLM for prediction.")
-        model = LocalLLM(model_name=args.llm, model_path=model_path, verbose=verbose)
+        model = LocalLLM(model_name=args.local, model_path=model_path, verbose=verbose)
     elif args.r:
         if verbose:
             print("Using RoBERTa model for prediction.")
@@ -81,7 +81,7 @@ def main():
             print(f"Using Ollama model '{args.o}' for prediction.")
         model = OllamaModel(model_name=args.o, verbose=verbose)
     else:
-        print("No model specified. Use -local, -llm, -r, -openai, or -claude to select a model.")
+        print("No model specified. Use -local, -llm, -r, -openai, -o, or -claude to select a model.")
         return
 
     # Predict

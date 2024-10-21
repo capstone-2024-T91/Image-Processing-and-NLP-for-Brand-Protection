@@ -10,4 +10,6 @@ configs/
 models/**
 !models/**/*.py
 logs/
+wandb/
+wab_log.py
 
