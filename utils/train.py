@@ -7,7 +7,7 @@ from utils.data_loader import load_dataset
 from tqdm import tqdm
 
 
-def train_model(model, tokenizer, model_name, verbose=False, resume_from_checkpoint=None):
+def train_model(model, tokenizer, model_name, verbose=False, resume_from_checkpoint=None, run_id=None):
     if verbose:
         logging.set_verbosity_info()
     else:
@@ -49,6 +49,11 @@ def train_model(model, tokenizer, model_name, verbose=False, resume_from_checkpo
     if resume_from_checkpoint:
         if verbose:
             print(f"Resuming training from checkpoint: {resume_from_checkpoint}")
+        if run_id:
+            os.environ["WANDB_RESUME"]="must"
+            os.environ["WANDB_RUN_ID"]=run_id
+            if verbose:
+                print(f"Resuming Weight&Biases tracking with run ID: {run_id}")
         trainer.train(resume_from_checkpoint=f'models/{model_name}_fine_tuned/checkpoint-{resume_from_checkpoint}')
     else:
         trainer.train()
