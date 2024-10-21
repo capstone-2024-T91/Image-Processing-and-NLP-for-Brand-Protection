@@ -1,6 +1,8 @@
-from transformers import RobertaForSequenceClassification, RobertaTokenizer
-import torch
 import os
+os.environ['TRANSFORMERS_NO_TF'] = '1'
+from transformers import RobertaForSequenceClassification, RobertaTokenizer, logging
+logging.set_verbosity_error()
+import torch
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from utils.train import train_model
@@ -8,9 +10,10 @@ from tqdm import tqdm
 
 
 class RobertaModel:
-    def __init__(self, model_path=None, verbose=False, training=False):
+    def __init__(self, model_path=None, verbose=False, training=False, checkpoint=None):
         self.verbose = verbose
         self.model_name = 'roberta-base'
+        self.checkpoint = checkpoint
         if training:
             # During training, load the base model from Hugging Face
             self.model_path = self.model_name
@@ -43,4 +46,4 @@ class RobertaModel:
         return torch.argmax(probs) == 1  # Assuming label 1 is 'Phishing'
 
     def train(self):
-        train_model(self.model, self.tokenizer, self.model_name, self.verbose)
+        train_model(self.model, self.tokenizer, self.model_name, self.verbose, self.checkpoint)

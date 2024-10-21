@@ -7,3 +7,7 @@ configs/
 *.log
 */__pycache__/*
 *.pyc
+models/**
+!models/**/*.py
+logs/
+
