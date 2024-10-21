@@ -74,8 +74,8 @@ The project structure is as follows:
 
 4. **Initialize Weights&Biases (Optional: Only if you're training a model)**
 
-   > [!TIP]
-   > Get your API key from your account before running this command
+> [!TIP]
+> Get your API key from your account before running this command
 
    ```bash
    wandb login
@@ -83,8 +83,8 @@ The project structure is as follows:
 
 5. **Run the project**
 
-   > [!NOTE]
-   > Detailed instructions on how to run the project will be provided in the future.
+> [!NOTE]
+> Detailed instructions on how to run the project will be provided in the future.
 
    ## Usage
 
