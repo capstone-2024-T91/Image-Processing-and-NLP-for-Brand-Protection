@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 
 class LocalLLM:
-    def __init__(self, model_name='distilbert-base-uncased', model_path=None, verbose=False, training=False):
+    def __init__(self, model_name='distilbert-base-uncased', model_path=None, verbose=False, training=False, checkpoint=None, run_id=None):
         self.verbose = verbose
         self.model_name = model_name or 'distilbert-base-uncased'
         if training:
@@ -41,4 +41,4 @@ class LocalLLM:
         return torch.argmax(probs) == 1  # Assuming label 1 is 'Phishing'
 
     def train(self):
-        train_model(self.model, self.tokenizer, self.model_name, self.verbose)
+        train_model(self.model, self.tokenizer, self.model_name, self.verbose, self.checkpoint, self.run_id)
