@@ -11,6 +11,8 @@ class LocalLLM:
     def __init__(self, model_name='distilbert-base-uncased', model_path=None, verbose=False, training=False, checkpoint=None, run_id=None):
         self.verbose = verbose
         self.model_name = model_name or 'distilbert-base-uncased'
+        self.checkpoint = checkpoint
+        self.run_id = run_id
         if training:
             self.model_path = self.model_name  # Load base model
         else:
