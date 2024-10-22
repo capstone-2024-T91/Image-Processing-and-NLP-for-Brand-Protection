@@ -40,7 +40,7 @@ def main():
     if args.train:
         # Training Mode
         if args.local or args.llm:
-            model = LocalLLM(model_name=args.local, verbose=verbose, training=True)
+            model = LocalLLM(model_name=args.local, verbose=verbose, training=True, checkpoint=checkpoint, run_id=run_id)
         elif args.r:
             model = RobertaModel(verbose=verbose, training=True, checkpoint=checkpoint, run_id=run_id)
         else:
