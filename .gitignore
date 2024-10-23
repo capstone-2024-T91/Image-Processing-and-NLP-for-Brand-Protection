@@ -12,4 +12,4 @@ models/**
 logs/
 wandb/
 wab_log.py
-
+data/local/
