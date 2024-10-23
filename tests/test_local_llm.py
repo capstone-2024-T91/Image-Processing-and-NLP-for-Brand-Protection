@@ -3,18 +3,22 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from models.local_llm import LocalLLM
+from utils.tester import Tester
+
 
 class TestLocalLLM(unittest.TestCase):
     def setUp(self):
+        model_name = 'distilbert-base-uncased'
         self.model = LocalLLM()
+        self.tester = Tester(
+            model=self.model,
+            model_name='LocalLLM-{}'.format(model_name),
+            verbose=True
+        )
 
-    def test_predict_phishing(self):
-        email = "You've won a prize! Click here to claim."
-        self.assertTrue(self.model.predict(email))
 
-    def test_predict_legitimate(self):
-        email = "Meeting scheduled for tomorrow at 10 AM."
-        self.assertFalse(self.model.predict(email))
+    def test_evaluate(self):
+        self.tester.evaluate()
 
 if __name__ == '__main__':
     unittest.main()
