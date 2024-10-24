@@ -1,0 +1,15 @@
+venv/
+data/raw
+# data/processed
+configs/
+.DS_Store
+.env
+*.log
+*/__pycache__/*
+*.pyc
+models/**
+!models/**/*.py
+logs/
+wandb/
+wab_log.py
+data/local/

@@ -1,52 +1,146 @@
-# Image-Processing-and-NLP-for-Brand-Protection
+# Phishing Email Detector
 
+This project aims to detect phishing emails using state-of-the-art NLP and ML algorithms.
 
-Malicious phishing websites change constantly and go through significant efforts to mimic legitimate websites. New phishing websites that impersonate companies are created every day, and always contain minor differences to evade automated detection methods. How could we use machine learning, natural language processing (NLP) and image recognition algorithms to automatically cluster and attribute malicious websites? The project will consist at developing a Machine Learning model for the early identification of Phishing sites.
+> [!WARNING]
+> This project is still under development. The final version will be released soon.
 
-## Repository Structure
+## Activity
+![Alt](https://repobeats.axiom.co/api/embed/7c2df6ed93e5ada0c509e26d03271ba306db4557.svg "Repobeats analytics image")
 
-### Classifiers
+## Project Structure
 
-- `AdaBoostClassifier.joblib`: Serialized AdaBoost classifier model for making predictions.
-- `DecisionTreeClassifier.joblib`: Serialized Decision Tree classifier model.
-- `LogisticRegression.joblib`: Serialized Logistic Regression model.
-- `RandomForestClassifier.joblib`: Serialized Random Forest classifier model.
-- `SGDClassifier.joblib`: Serialized Stochastic Gradient Descent classifier model.
-- `ml_detection.ipynb`: Jupyter notebook used for the training and validation of machine learning models.
-- `ml_predictor.ipynb`: Jupyter notebook used for predicting labels on new data using the trained models.
+- **data/**: Contains raw and processed datasets.
+- **notebooks/**: Jupyter notebooks for exploratory data analysis.
+- **src/**: Source code for data preprocessing, model training, and evaluation.
+- **models/**: Saved trained models and encoders.
+- **tests/**: Unit tests for the project.
+- **configs/**: Configuration files.
+- **utils/**: Utility functions for data preprocessing, model training, and evaluation.
 
-### Neural_Networks
+The project structure is as follows:
+```
+    project/
+    ├── models/
+    │   ├── local_llm.py
+    │   ├── roberta_model.py
+    │   ├── ollama_model.py
+    │   ├── openai_model.py
+    │   └── claude_model.py
+    ├── tests/
+    │   ├── test_local_llm.py
+    │   ├── test_roberta_model.py
+    │   ├── test_ollama_model.py
+    │   ├── test_openai_model.py
+    │   └── test_claude_model.py
+    ├── utils/
+    │   ├── preprocess.py
+    │   ├── train.py
+    │   └── data_loader.py
+    ├── data/
+    │   ├── processed/
+    │   └── raw/
+    ├── src/
+    │   └── main.py
+    ├── configs/
+    ├── notebooks/
+    ├── .env
+    ├── setup.py
+    ├── requirements.txt
+    └── README.md
+```
 
-- `nn_phishing_model.h5`: Serialized neural network model saved in HDF5 format.
-- `neural-network-detection.ipynb`: Jupyter notebook for training and validating neural network-based models.
-- `nn_predictor.ipynb`: Jupyter notebook for making predictions with the neural network model.
+## Setup
 
-### Tokenizers
+1. **Clone the repository**
 
-- `tokenizer.pickle`: Serialized file containing the tokenizer for preprocessing text data before feeding it into the models.
+   ```bash
+   git clone https://github.com/capstone-2024-T91/Image-Processing-and-NLP-for-Brand-Protection.git
+   cd Image-Processing-and-NLP-for-Brand-Protection
+   ```
 
-### Vectorizers
+2. **Create a virtual environment**
 
-- `AdaBoostClassifier_vectorizer.joblib`: Vectorizer paired with the AdaBoost model for data preprocessing.
-- `DecisionTreeClassifier_vectorizer.joblib`: Vectorizer paired with the Decision Tree model.
-- `LogisticRegression_vectorizer.joblib`: Vectorizer paired with the Logistic Regression model.
-- `RandomForestClassifier_vectorizer.joblib`: Vectorizer paired with the Random Forest model.
-- `SGDClassifier_vectorizer.joblib`: Vectorizer paired with the SGD classifier model.
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ```
 
-### Other Files
+3. **Install dependencies**
 
-- `Phishing_Email.csv`: The dataset containing email data, labeled for phishing detection.
-- `README.md`: This document, which explains the project and repository structure.
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+4. **Set up environment variables**
 
-## Results
+   Copy the `.env.example` file to `.env` and fill in the required environment variables.
 
-### Neural Network Predictor Results
+   ```bash
+    cp .env.example .env
+    ```
+> [!WARNING]
+> You only need to set the API keys if you're using OpenAI's GPT models or Anthropic's Claude models.
 
-![Neural Network Predictor Results](Assets/nn-result.png)
+5. **Initialize Weights&Biases (Optional: Only if you're training a model)**
 
-This image shows the results after running the neural network prediction model. The model's accuracy, loss, and other relevant metrics are presented.
+> [!TIP]
+> Get your API key from your account before running this command
 
-### Machine Learning Predictor Results
+   ```bash
+   wandb login
+   ```
 
-![Machine Learning Predictor Results](Assets/ml-result.png)
+6. **Run the project**
+
+> [!NOTE]
+> Detailed instructions on how to run the project will be provided in the future.
+
+   ## Usage
+
+      ```bash
+      python main.py [options] <email_text>
+      ```
+
+   <email_text>: The email content you want to classify.
+   Options:
+      -llm <model_name>: Specify a local LLM by name.
+      -openai: Use OpenAI's GPT models.
+      -claude: Use Anthropic's Claude models.
+      -o <model_name>: Specify a model by name to use by Ollama.
+      -r: Use the RoBERTa model.
+      -local: Use the default local LLM.
+      -train: Train the selected model.
+      -v: Enable verbose output.
+      -checkpoint: Resume training from the last checkpoint.
+
+   ## Examples
+
+   - Using OpenAI's GPT Model with Verbose Output
+
+   ```bash
+   python main.py -openai -v "Your email content here." # Use the finetuned OpenAI's gpt4o-mini model
+   ```
+
+   - Training the RoBERTa Model
+
+   ```bash
+   python main.py -r -train
+   ```
+
+   - Using a Specific Local LLM
+
+   ```bash
+   python main.py -llm "Your email content here." # Use the default local LLM (distilbert-base-uncased-finetuned)
+   ```
+
+   - Using an Ollama Model
+
+   ```bash
+   python main.py -o llama3 "Your email content here."
+   ```
+
+### **Citation**
+
+**Conference Paper:**
+> A. I. Champa, M. F. Rabbi, and M. F. Zibran, “Why phishing emails escape detection: A closer look at the failure points,” in *12th International Symposium on Digital Forensics and Security (ISDFS)*, 2024, pp. 1–6 (to appear).
