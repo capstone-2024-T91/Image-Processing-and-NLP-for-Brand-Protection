@@ -72,7 +72,17 @@ The project structure is as follows:
    pip install -r requirements.txt
    ```
 
-4. **Initialize Weights&Biases (Optional: Only if you're training a model)**
+4. **Set up environment variables**
+
+   Copy the `.env.example` file to `.env` and fill in the required environment variables.
+
+   ```bash
+    cp .env.example .env
+    ```
+> [!WARNING]
+> You only need to set the API keys if you're using OpenAI's GPT models or Anthropic's Claude models.
+
+5. **Initialize Weights&Biases (Optional: Only if you're training a model)**
 
 > [!TIP]
 > Get your API key from your account before running this command
@@ -81,7 +91,7 @@ The project structure is as follows:
    wandb login
    ```
 
-5. **Run the project**
+6. **Run the project**
 
 > [!NOTE]
 > Detailed instructions on how to run the project will be provided in the future.
