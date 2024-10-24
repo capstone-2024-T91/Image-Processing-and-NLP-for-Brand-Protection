@@ -12,7 +12,7 @@ class OllamaModel:
                     Email:
                     {text}
 
-                    Answer with 'Phishing' or 'Legitimate'.
+                    Answer ONLY with 'Phishing' or 'Legitimate'.
                     """
         if self.verbose:
             print(f"Sending request to Ollama model '{self.model_name}'...")
