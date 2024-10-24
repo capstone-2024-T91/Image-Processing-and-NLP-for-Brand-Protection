@@ -109,7 +109,7 @@ The project structure is as follows:
    - Using OpenAI's GPT Model with Verbose Output
 
    ```bash
-   python main.py -openai -v "Your email content here."
+   python main.py -openai -v "Your email content here." # Use the finetuned OpenAI's gpt4o-mini model
    ```
 
    - Training the RoBERTa Model
@@ -121,13 +121,13 @@ The project structure is as follows:
    - Using a Specific Local LLM
 
    ```bash
-   python main.py -llm gpt2 "Your email content here."
+   python main.py -llm "Your email content here." # Use the default local LLM (distilbert-base-uncased-finetuned)
    ```
 
    - Using an Ollama Model
 
    ```bash
-   python main.py -o ollama "Your email content here."
+   python main.py -o llama3 "Your email content here."
    ```
 
 ### **Citation**
