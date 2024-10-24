@@ -22,9 +22,5 @@ texts_with_tokens = [{'text': text, 'num_tokens': count_tokens(text)} for text i
 import pandas as pd
 texts_df = pd.DataFrame(texts_with_tokens)
 
-# Display plot of the number of tokens in each text
-texts_df['num_tokens'].plot(kind='hist', title='Number of Tokens in Texts')
-plt.show()
-
 print(f"Number of tokens in 5% of the dataset: {texts_df['num_tokens'].sum()}")
 

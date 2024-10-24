@@ -11,7 +11,7 @@ class TestOpenAIModel(unittest.TestCase):
         self.model = OpenAIModel()
         self.tester = Tester(
             model=self.model,
-            model_name='OpenAI GPT',
+            model_name='OpenAI-got4o-mini-finetuned',
             verbose=True
         )
 
