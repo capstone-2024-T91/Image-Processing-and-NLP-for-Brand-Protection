@@ -24,7 +24,7 @@ class RobertaModel:
         if self.verbose:
             print(f"Loading tokenizer from: {self.model_path}")
         with tqdm(total=1, desc="Loading Tokenizer", unit="step") as pbar:
-            self.tokenizer = RobertaTokenizer.from_pretrained(self.model_path)
+            self.tokenizer = RobertaTokenizer.from_pretrained(self.model_name)
             pbar.update(1)
         # self.tokenizer = RobertaTokenizer.from_pretrained(self.model_path)
         if self.verbose:
@@ -37,7 +37,7 @@ class RobertaModel:
     def predict(self, text):
         if self.verbose:
             print("Tokenizing input...")
-        inputs = self.tokenizer(text, return_tensors='pt')
+        inputs = self.tokenizer(text, return_tensors='pt', max_length=512, truncation=True, padding='max_length')
         if self.verbose:
             print("Running the model...")
         outputs = self.model(**inputs)
