@@ -45,6 +45,7 @@ The project structure is as follows:
     ├── configs/
     ├── notebooks/
     ├── .env
+    ├── api.py
     ├── setup.py
     ├── requirements.txt
     └── README.md
@@ -140,7 +141,24 @@ The project structure is as follows:
    python main.py -o llama3 "Your email content here."
    ```
 
+### Server
+
+The `api.py` script initializes and preloads the models at startup, enabling them to run seamlessly in response to GET requests.
+
+
+### Containerisation
+If you want to containerize the project locally and run it, make sure you're logged into docker (docker login) and run the following :
+- To build the image :
+```bash
+sudo docker build -t phishing-email-detector . 
+``` 
+- To run the image :
+```bash
+docker run -p 8080:5000 -e OPENAI_API_KEY="REPLACE_THIS" -e HUGGINGFACE_ACCESS_TOKEN="REPLACE_THIS" -e ANTHROPIC_API_KEY="REPLACE_THIS"  phishing-email-detector
+```
+
 ### **Citation**
 
 **Conference Paper:**
 > A. I. Champa, M. F. Rabbi, and M. F. Zibran, “Why phishing emails escape detection: A closer look at the failure points,” in *12th International Symposium on Digital Forensics and Security (ISDFS)*, 2024, pp. 1–6 (to appear).
+

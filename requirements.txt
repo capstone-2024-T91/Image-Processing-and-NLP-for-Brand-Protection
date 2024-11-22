@@ -144,3 +144,5 @@ wrapt==1.16.0
 xxhash==3.5.0
 yarl==1.11.1
 zipp==3.20.2
+flask==3.0.0
+python-dotenv==1.0.1
