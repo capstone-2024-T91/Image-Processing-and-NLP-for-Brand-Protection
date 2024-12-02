@@ -160,7 +160,7 @@ We deployed the Models for the Phishing Email Detector as a containerized applic
 5. **Postman Integration**:
    Configured and tested the deployment with Postman.
 > [!NOTE]
-> For comprehensive documentation our Backend and testing using Postman requests, please visit our other repository: [Frontend-Backend](https://github.com/capstone-2024-T91/Frontend-Backend)
+> For comprehensive documentation of our Backend and testing using Postman requests, please visit our other repository: [Frontend-Backend](https://github.com/capstone-2024-T91/Frontend-Backend)
 
 ### Containerisation
 
