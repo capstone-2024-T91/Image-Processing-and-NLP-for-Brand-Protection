@@ -158,7 +158,9 @@ We deployed the Models for the Phishing Email Detector as a containerized applic
 4. **SSL Certificates**: Added SSL certificates via Let's Encrypt to secure HTTP requests and allow communication with the chrome extension.
 
 5. **Postman Integration**:
-   Configured and tested the deployment with Postman. (See example requests below.)
+   Configured and tested the deployment with Postman.
+> [!NOTE]
+> For comprehensive documentation our Backend and testing using Postman requests, please visit our other repository: [Frontend-Backend](https://github.com/capstone-2024-T91/Frontend-Backend)
 
 ### Containerisation
 
