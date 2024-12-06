@@ -6,10 +6,12 @@ configs/
 .env
 *.log
 */__pycache__/*
+**/__pycache__/**
 *.pyc
-models/**
-!models/**/*.py
+*.pyo
 logs/
 wandb/
 wab_log.py
 data/local/
+htmlcov/
+.coverage
